@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobHandler;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 import io.zeebe.tasklist.entity.TaskEntity;
 import io.zeebe.tasklist.repository.TaskRepository;
@@ -38,7 +39,7 @@ public class UserTaskJobHandler implements JobHandler {
   @Autowired private NotificationService notificationService;
 
   @Override
-  @ZeebeWorker(timeout = 2592000000L) // 30 days
+  @JobWorker(timeout = 2592000000L, autoComplete = false) // 30 days
   public void handle(JobClient client, ActivatedJob job) {
 
     final TaskEntity entity = new TaskEntity();
