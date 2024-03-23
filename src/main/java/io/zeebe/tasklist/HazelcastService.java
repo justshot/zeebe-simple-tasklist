@@ -3,6 +3,7 @@ package io.zeebe.tasklist;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
+import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.protocol.record.intent.JobIntent;
 import io.zeebe.exporter.proto.Schema;
 import io.zeebe.hazelcast.connect.java.ZeebeHazelcast;
@@ -11,6 +12,7 @@ import io.zeebe.tasklist.repository.HazelcastConfigRepository;
 import io.zeebe.tasklist.repository.TaskRepository;
 import io.zeebe.tasklist.view.NotificationService;
 import java.time.Duration;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
@@ -33,6 +35,8 @@ public class HazelcastService {
   @Autowired private NotificationService notificationService;
   @Autowired private TaskRepository taskRepository;
   @Autowired private HazelcastConfigRepository hazelcastConfigRepository;
+
+  @Autowired private ZeebeClient zeebeClient;
 
   private ZeebeHazelcast hazelcast;
 
@@ -95,6 +99,18 @@ public class HazelcastService {
   private void handleIncident(Schema.IncidentRecord record) {
     LOG.debug("handleIncident");
     LOG.debug(record.toString());
+
+//    zeebeClient.newSetVariablesCommand(record.getElementInstanceKey())
+//            .variables(Map.of("IsGood",true))
+//            .send()
+//            .join();
+//    zeebeClient.newUpdateRetriesCommand(record.getJobKey())
+//            .retries(3)
+//            .send()
+//            .join();
+//    zeebeClient.newResolveIncidentCommand(record.getMetadata().getKey())
+//            .send()
+//            .join();
   }
 
   private void handleError(Schema.ErrorRecord record) {

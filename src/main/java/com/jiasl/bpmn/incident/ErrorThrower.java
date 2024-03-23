@@ -12,17 +12,13 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class ErrorThrower implements JobHandler{
-
-    @PostConstruct
-    public void init() {
-            LOG.info("ErrorThrower started.");
-    }
-
     private static final Logger LOG = LoggerFactory.getLogger(ErrorThrower.class);
 
     @Override
     @JobWorker(type = "errorService", timeout = 2592000000L)
     public void handle(final JobClient client, final ActivatedJob job){
-        throw new RuntimeException("I deliberatly throwed this exception.");
+        if(!(Boolean)job.getVariablesAsMap().get("IsGood")) {
+            throw new RuntimeException("I deliberatly throwed this exception.");
+        }
     }
 }
