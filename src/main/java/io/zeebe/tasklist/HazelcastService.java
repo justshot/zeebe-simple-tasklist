@@ -66,6 +66,8 @@ public class HazelcastService {
           ZeebeHazelcast.newBuilder(hz)
               .addJobListener(this::handleJob)
                   .addProcessEventListener(this::handleProcess)
+                  .addIncidentListener(this::handleIncident)
+                  .addErrorListener(this::handleError)
               .postProcessListener(
                   sequence -> {
                     hazelcastConfig.setSequence(sequence);
@@ -85,11 +87,23 @@ public class HazelcastService {
     }
   }
 
-  private void handleProcess(Schema.ProcessEventRecord processEventRecord) {
-    LOG.debug(processEventRecord.toString());
+  private void handleProcess(Schema.ProcessEventRecord record) {
+    LOG.debug("handleProcess");
+    LOG.debug(record.toString());
+  }
+
+  private void handleIncident(Schema.IncidentRecord record) {
+    LOG.debug("handleIncident");
+    LOG.debug(record.toString());
+  }
+
+  private void handleError(Schema.ErrorRecord record) {
+    LOG.debug("handleError");
+    LOG.debug(record.toString());
   }
 
   private void handleJob(Schema.JobRecord job) {
+    LOG.debug("handleJob");
     LOG.debug(job.toString());
     if (isCanceled(job)) {
 

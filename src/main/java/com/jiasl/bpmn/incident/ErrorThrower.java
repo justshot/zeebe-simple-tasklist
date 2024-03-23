@@ -21,7 +21,7 @@ public class ErrorThrower implements JobHandler{
     private static final Logger LOG = LoggerFactory.getLogger(ErrorThrower.class);
 
     @Override
-    @JobWorker(type = "errorService", timeout = 2592000000L, autoComplete = true)
+    @JobWorker(type = "errorService", timeout = 2592000000L)
     public void handle(final JobClient client, final ActivatedJob job){
         throw new RuntimeException("I deliberatly throwed this exception.");
     }
