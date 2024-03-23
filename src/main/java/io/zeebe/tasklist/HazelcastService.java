@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class HazelcastService {
 
   private static final Logger LOG = LoggerFactory.getLogger(HazelcastService.class);
@@ -65,6 +65,7 @@ public class HazelcastService {
       final var builder =
           ZeebeHazelcast.newBuilder(hz)
               .addJobListener(this::handleJob)
+                  .addProcessEventListener(this::handleProcess)
               .postProcessListener(
                   sequence -> {
                     hazelcastConfig.setSequence(sequence);
@@ -84,7 +85,12 @@ public class HazelcastService {
     }
   }
 
+  private void handleProcess(Schema.ProcessEventRecord processEventRecord) {
+    LOG.debug(processEventRecord.toString());
+  }
+
   private void handleJob(Schema.JobRecord job) {
+    LOG.debug(job.toString());
     if (isCanceled(job)) {
 
       taskRepository

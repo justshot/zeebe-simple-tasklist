@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableScheduling
 @EnableAsync
 @EnableSpringDataWebSupport
+@ComponentScan(basePackages = {"io.zeebe.tasklist","com.jiasl"})
 public class ZeebeSimpleTasklistApp {
 
   private static final Logger LOG = LoggerFactory.getLogger(ZeebeSimpleTasklistApp.class);
