@@ -2,6 +2,14 @@ Zeebe Simple Tasklist
 =========================
 ## Install
 ### Docker
+1. Build the project
+```dtd
+mvn install
+```
+1. Build docker image
+```dtd
+docker build -t task-list .
+```
 1. start docker image
     ```
     cd docker
@@ -14,6 +22,9 @@ Zeebe Simple Tasklist
 
 ### IntelliJ
 1. start zeebe_broker container
+```dtd
+docker start zeebe_broker
+```
 1. Run `ZeebeSimpleTasklistApp.java`
 1. Go to http://localhost:8081
    
