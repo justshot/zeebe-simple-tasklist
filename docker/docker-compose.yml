@@ -6,7 +6,7 @@ networks:
 
 services:
   zeebe:
-    container_name: zeebe_broker
+    container_name: zeebe_broker_simple_tasklist
     image: ghcr.io/camunda-community-hub/zeebe-with-hazelcast-exporter:8.2.0
     environment:
       - ZEEBE_LOG_LEVEL=debug
@@ -19,7 +19,7 @@ services:
 
   zeebe-simple-tasklist-in-memory:
     container_name: zeebe-simple-tasklist-in-memory
-    image: task-list:latest
+    image: simple-task-list:latest
     environment:
       - zeebe.client.broker.gateway-address=zeebe:26500
       - zeebe.client.worker.hazelcast.connection=zeebe:5701

@@ -8,7 +8,7 @@ mvn install
 ```
 1. Build docker image
 ```dtd
-docker build -t task-list .
+docker build -t simple-task-list .
 ```
 1. start docker image
     ```
