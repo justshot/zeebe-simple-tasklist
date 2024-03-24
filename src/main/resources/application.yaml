@@ -54,7 +54,7 @@ logging:
   level:
     root: ERROR
     io.camunda: INFO
-    io.zeebe.tasklist: DEBUG
+    io.zeebe.tasklist: INFO
     com.hazelcast: WARN
     com.jiasl: INFO
 

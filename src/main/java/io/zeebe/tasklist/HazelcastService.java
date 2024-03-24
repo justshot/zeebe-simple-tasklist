@@ -97,20 +97,22 @@ public class HazelcastService {
   }
 
   private void handleIncident(Schema.IncidentRecord record) {
-    LOG.debug("handleIncident");
-    LOG.debug(record.toString());
+    LOG.info("handleIncident");
+    LOG.info(record.toString());
 
-//    zeebeClient.newSetVariablesCommand(record.getElementInstanceKey())
-//            .variables(Map.of("IsGood",true))
-//            .send()
-//            .join();
-//    zeebeClient.newUpdateRetriesCommand(record.getJobKey())
-//            .retries(3)
-//            .send()
-//            .join();
-//    zeebeClient.newResolveIncidentCommand(record.getMetadata().getKey())
-//            .send()
-//            .join();
+    if(record.getMetadata().getIntent().equals("CREATED")) {
+      zeebeClient.newSetVariablesCommand(record.getElementInstanceKey())
+              .variables(Map.of("IsGood",true))
+              .send()
+              .join();
+      zeebeClient.newUpdateRetriesCommand(record.getJobKey())
+              .retries(3)
+              .send()
+              .join();
+      zeebeClient.newResolveIncidentCommand(record.getMetadata().getKey())
+              .send()
+              .join();
+    }
   }
 
   private void handleError(Schema.ErrorRecord record) {
