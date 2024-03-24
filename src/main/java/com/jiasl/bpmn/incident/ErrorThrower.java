@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 @Component
 public class ErrorThrower implements JobHandler{
     private static final Logger LOG = LoggerFactory.getLogger(ErrorThrower.class);
